@@ -12,8 +12,8 @@ repositories {
 }
 
 application{
-    mainModule = 'org.openjfx.core.Connect4Logic'
-    mainClassName = 'org.openjfx.core.Connect4Logic'
+    mainModule = 'JenkinsTestTool.main.core.Connect4Logic'
+    mainClassName = 'JenkinsTestTool.main.core.Connect4Logic'
 }
 
 configurations {
