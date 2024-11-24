@@ -45,9 +45,6 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:5.14.2'
 }
 
-tasks.named('test', Test) {
-
-}
 
 tasks.register('testReport', TestReport) {
     destinationDirectory = reporting.baseDirectory.dir('allTests')
