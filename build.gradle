@@ -1,0 +1,66 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+group = 'asu.SER216'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+application{
+    mainModule = 'org.openjfx.core.Connect4Logic'
+    mainClassName = 'org.openjfx.core.Connect4Logic'
+}
+
+configurations {
+    intTestImplementation.extendsFrom implementation
+    intTestRuntimeOnly.extendsFrom runtimeOnly
+}
+
+javafx{
+    modules = [ 'javafx.controls' ]
+    version = '23.0.1'
+}
+
+java.testResultsDir = layout.buildDirectory.dir("junit-xml")
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.openjfx/javafx-controls
+    implementation 'org.openjfx:javafx-controls:23.0.1'
+    // https://mvnrepository.com/artifact/org.junit/junit-bom
+    testImplementation platform('org.junit:junit-bom:5.11.3')
+    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.3'
+    // https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.14.2'
+    // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
+    testRuntimeOnly('org.junit.platform:junit-platform-launcher:1.11.3')
+    // https://mvnrepository.com/artifact/org.mockito/mockito-core
+    testImplementation 'org.mockito:mockito-core:5.14.2'
+}
+
+tasks.named('test', Test) {
+    useJUnitPlatform()
+    maxParallelForks = 2
+    maxHeapSize = '1G'
+
+    testLogging {
+        events "passed"
+    }
+}
+
+tasks.register('testReport', TestReport) {
+    destinationDirectory = reporting.baseDirectory.dir('allTests')
+    // Use test results from testReportData configuration
+    testResults.from(configurations.testReportData)
+}
+
+test {
+    reports {
+        junitXml.outputLocation = layout.buildDirectory.dir("test-junit-xml")
+    }
+}

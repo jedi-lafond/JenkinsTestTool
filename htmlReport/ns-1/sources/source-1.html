@@ -1,0 +1,276 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Connect4ComputerPlayer</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">core</a>
+</div>
+
+<h1>Coverage Summary for Class: Connect4ComputerPlayer (core)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Connect4ComputerPlayer</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    92.3%
+  </span>
+  <span class="absValue">
+    (24/26)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    95.6%
+  </span>
+  <span class="absValue">
+    (43/45)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package core;
+&nbsp;
+&nbsp;import ui.Connect4TextConsole;
+&nbsp;
+&nbsp;import java.util.InputMismatchException;
+&nbsp;
+&nbsp;/**
+&nbsp; * Displays in console a simulated game board for the game Connect 4.
+&nbsp; *
+&nbsp; * @author jedidiahlafond
+&nbsp; * @version 0.04
+&nbsp; * @see Connect4Logic
+&nbsp; * @see Connect4TextConsole
+&nbsp; */
+&nbsp;public class Connect4ComputerPlayer {
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a new Connect4ComputerPlayer game object
+&nbsp;     */
+<b class="fc">&nbsp;    public Connect4ComputerPlayer(){</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Takes a Player object and takes a turn. The computer will find an advantageous valid position
+&nbsp;     * to drop a token into and make the move. It will update the validMoveIndex and totalMoves.
+&nbsp;     *
+&nbsp;     * @param gameState the game state
+&nbsp;     */
+&nbsp;    public void takeTurn(GameState gameState){
+&nbsp;        try {
+<b class="fc">&nbsp;            int column = computerMove(gameState);</b>
+<b class="fc">&nbsp;            if(gameState.validMoveIndex[column] &lt; 0){</b>
+<b class="fc">&nbsp;                throw new InputMismatchException(&quot;Column is full&quot;);</b>
+&nbsp;            }
+<b class="fc">&nbsp;            gameState.connect4matrix[gameState.validMoveIndex[column]][column] = gameState.curPlayerTurn.getMarking();</b>
+<b class="fc">&nbsp;            gameState.validMoveIndex[column]--;</b>
+<b class="fc">&nbsp;            gameState.totalMoves++;</b>
+&nbsp;        } catch (IndexOutOfBoundsException e) {
+<b class="nc">&nbsp;            System.out.println(e.getMessage());</b>
+&nbsp;            throw e;
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Chooses a valid input from the validMoveIndex[] and tests to see which move is most
+&nbsp;     * advantageous by maximizing the connections between its tokens. It then checks to see if it needs to block
+&nbsp;     * the other player from winning. In future implementations the offense/defense on will be optimized to block
+&nbsp;     * the other player from getting three in a row. It will simulate a move it has made and one move the other
+&nbsp;     * person has made.
+&nbsp;     *
+&nbsp;     * @param gameState the game state
+&nbsp;     * @return the column to drop the token down.
+&nbsp;     */
+&nbsp;    public int computerMove(GameState gameState) {
+<b class="fc">&nbsp;        int bestChoice4CPU = -1;</b>
+<b class="fc">&nbsp;        int maxConnections = 0;</b>
+<b class="fc">&nbsp;        for (int col = 0; col &lt; gameState.validMoveIndex.length; col++) {</b>
+<b class="fc">&nbsp;            int row = gameState.validMoveIndex[col];</b>
+&nbsp;
+&nbsp;            // Check if this column has a valid move
+<b class="fc">&nbsp;            if (row &gt;= 0) {</b>
+&nbsp;                // Simulate placing CPU token
+<b class="fc">&nbsp;                gameState.connect4matrix[row][col] = &#39;O&#39;;</b>
+&nbsp;
+&nbsp;                // Evaluate the number of connected tokens
+<b class="fc">&nbsp;                int connections = countConnections(row, col, gameState.curPlayerTurn.getMarking(), gameState);</b>
+&nbsp;
+&nbsp;                // Reset the simulated move
+<b class="fc">&nbsp;                gameState.connect4matrix[row][col] = &#39;\0&#39;;</b>
+&nbsp;
+&nbsp;                // Update the best move if this column has more connections
+<b class="fc">&nbsp;                if (connections &gt; maxConnections) {</b>
+<b class="fc">&nbsp;                    maxConnections = connections;</b>
+<b class="fc">&nbsp;                    bestChoice4CPU = col;</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        for (int col = 0; col &lt; gameState.validMoveIndex.length; col++) {</b>
+<b class="fc">&nbsp;            int row = gameState.validMoveIndex[col];</b>
+&nbsp;
+&nbsp;            // Check if this column has a valid move
+<b class="fc">&nbsp;            if (row &gt;= 0) {</b>
+&nbsp;                // Simulate placing player token
+<b class="fc">&nbsp;                gameState.connect4matrix[row][col] = &#39;X&#39;;</b>
+&nbsp;
+&nbsp;                // Evaluate the number of connected tokens
+<b class="fc">&nbsp;                int connections = countConnections(row, col, gameState.otherPlayer.getMarking(), gameState);</b>
+&nbsp;
+&nbsp;                // Reset the simulated move
+<b class="fc">&nbsp;                gameState.connect4matrix[row][col] = &#39;\0&#39;;</b>
+&nbsp;
+&nbsp;                //block player move if they&#39;ll win next turn
+<b class="fc">&nbsp;                if (connections &gt;= 4) {</b>
+<b class="fc">&nbsp;                    return col;</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;        try {
+<b class="pc">&nbsp;            if (gameState.validMoveIndex[bestChoice4CPU] &lt; 0) {</b>
+<b class="nc">&nbsp;                throw new InputMismatchException(&quot;InvalidMoveSelected&quot;);</b>
+&nbsp;            }
+<b class="fc">&nbsp;            return bestChoice4CPU;</b>
+&nbsp;        }catch(IndexOutOfBoundsException e){
+<b class="fc">&nbsp;            System.out.println(e.getMessage());</b>
+&nbsp;            throw e;
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Takes a row, column, and a marking. It will scan vertically, horizontally, and diagonally.
+&nbsp;     * With the local variable maxConnection it uses a Math.max to weigh it against the return
+&nbsp;     * value of countDirection. This adds up how many connections are possible in all directions.
+&nbsp;     * It subtracts one since the target being tested is double counted.
+&nbsp;     *
+&nbsp;     * @param row int of the row of the gameboardmatrix
+&nbsp;     * @param col int of the col of the gameboardmatrix
+&nbsp;     * @param marking of the player
+&nbsp;     * @return the total connections to determine which move is most advantageous
+&nbsp;     */
+&nbsp;    public int countConnections(int row, int col, char marking, GameState gameState) {
+<b class="fc">&nbsp;        int maxConnections = 1; // Starts with the current token being placed</b>
+&nbsp;        // Horizontal
+<b class="fc">&nbsp;        maxConnections = Math.max(maxConnections, countDirection(row, col, 1, 0, marking, gameState) + countDirection(row, col, -1, 0, marking, gameState) - 1);</b>
+&nbsp;        // Vertical
+<b class="fc">&nbsp;        maxConnections = Math.max(maxConnections, countDirection(row, col, 0, 1, marking, gameState) + countDirection(row, col, 0, -1, marking, gameState) - 1);</b>
+&nbsp;        // Diagonal right to left
+<b class="fc">&nbsp;        maxConnections = Math.max(maxConnections, countDirection(row, col, 1, 1, marking, gameState) + countDirection(row, col, -1, -1, marking, gameState) - 1);</b>
+&nbsp;        // Diagonal left to right
+<b class="fc">&nbsp;        maxConnections = Math.max(maxConnections, countDirection(row, col, 1, -1, marking, gameState) + countDirection(row, col, -1, 1, marking, gameState) - 1);</b>
+&nbsp;
+<b class="fc">&nbsp;        return maxConnections;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This takes a row, column. This is the targeted, valid potential move. It then adds up the total it would connect
+&nbsp;     * in all directions using the deltas to search up, down, side to side, and diagonally. It checks to make sure all
+&nbsp;     * parameters and changes are within the bounds of the matrix. It then returns the total.
+&nbsp;     * @param row integer of the row
+&nbsp;     * @param col integer of the Column
+&nbsp;     * @param rowDelta integer of the delta of the row/the direction the row extends
+&nbsp;     * @param colDelta integer of the delta of the col/the direction the col extends
+&nbsp;     * @param marking player char for marking
+&nbsp;     * @return integer of the amount connected from a specific direction
+&nbsp;     */
+&nbsp;    public int countDirection(int row, int col, int rowDelta, int colDelta, char marking, GameState gameState) {
+<b class="fc">&nbsp;        int count = 0;</b>
+<b class="fc">&nbsp;        int r = row;</b>
+<b class="fc">&nbsp;        int c = col;</b>
+&nbsp;
+&nbsp;        // Traverse in one direction to count consecutive tokens
+<b class="pc">&nbsp;        while (r &gt;= 0 &amp;&amp; r &lt; gameState.connect4matrix.length &amp;&amp; c &gt;= 0 &amp;&amp; c &lt; gameState.connect4matrix[0].length &amp;&amp; gameState.connect4matrix[r][c] == marking) {</b>
+<b class="fc">&nbsp;            count++;</b>
+<b class="fc">&nbsp;            r += rowDelta;</b>
+<b class="fc">&nbsp;            c += colDelta;</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return count;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-11-20 19:02</div>
+</div>
+</body>
+</html>

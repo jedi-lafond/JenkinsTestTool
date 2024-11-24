@@ -1,0 +1,164 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > GameState</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">core</a>
+</div>
+
+<h1>Coverage Summary for Class: GameState (core)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GameState</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package core;
+&nbsp;
+&nbsp;import ui.Connect4Gui;
+&nbsp;
+&nbsp;/**
+&nbsp; * Displays in console a simulated game board for the game Connect 4.
+&nbsp; *
+&nbsp; * @author jedidiahlafond
+&nbsp; * @version 0.04
+&nbsp; * @see Connect4Logic
+&nbsp; * @see Connect4Gui
+&nbsp; */
+&nbsp;public class GameState {
+&nbsp;    public static final int MAX_MOVES = 42;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The Connect 4 matrix.
+&nbsp;     */
+&nbsp;    public char[][] connect4matrix;
+&nbsp;    /**
+&nbsp;     * The Total moves.
+&nbsp;     */
+&nbsp;    public int totalMoves;
+&nbsp;    /**
+&nbsp;     * The Cur player turn.
+&nbsp;     */
+&nbsp;    public Player curPlayerTurn;
+&nbsp;    /**
+&nbsp;     * The Other player.
+&nbsp;     */
+&nbsp;    public Player otherPlayer;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The Valid move index.
+&nbsp;     */
+&nbsp;    public int[] validMoveIndex;
+&nbsp;    /**
+&nbsp;     * The constant isComputer.
+&nbsp;     */
+&nbsp;    public static boolean isComputer;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set is computer.
+&nbsp;     *
+&nbsp;     * @param playComputer the play computer
+&nbsp;     */
+&nbsp;    public static void setIsComputer(boolean playComputer){
+<b class="fc">&nbsp;        isComputer = playComputer;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Instantiates a new Game state.
+&nbsp;     */
+<b class="fc">&nbsp;    public GameState(){</b>
+<b class="fc">&nbsp;        this.connect4matrix = new char[6][7];</b>
+<b class="fc">&nbsp;        this.validMoveIndex = new int[]{5, 5, 5, 5, 5, 5, 5};</b>
+<b class="fc">&nbsp;        this.totalMoves = 0;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-11-20 19:02</div>
+</div>
+</body>
+</html>

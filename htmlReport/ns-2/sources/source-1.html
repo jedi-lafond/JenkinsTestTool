@@ -1,0 +1,465 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Connect4Gui</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">ui</a>
+</div>
+
+<h1>Coverage Summary for Class: Connect4Gui (ui)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Connect4Gui</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/40)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/160)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package ui;
+&nbsp;
+&nbsp;import javafx.application.Application;
+&nbsp;import javafx.application.Platform;
+&nbsp;import javafx.geometry.Insets;
+&nbsp;import javafx.scene.Scene;
+&nbsp;import javafx.scene.control.Button;
+&nbsp;import javafx.scene.layout.*;
+&nbsp;import javafx.scene.paint.Color;
+&nbsp;import javafx.scene.shape.Circle;
+&nbsp;import javafx.scene.shape.Rectangle;
+&nbsp;import javafx.scene.text.Font;
+&nbsp;import javafx.scene.text.Text;
+&nbsp;import javafx.scene.text.TextAlignment;
+&nbsp;import javafx.stage.Stage;
+&nbsp;import core.Connect4ComputerPlayer;
+&nbsp;import core.Connect4Logic;
+&nbsp;import core.GameState;
+&nbsp;import core.Player;
+&nbsp;
+&nbsp;/**
+&nbsp; * Displays in GUI a simulated game board for the game Connect 4.
+&nbsp; *
+&nbsp; * @author jedidiahlafond
+&nbsp; * @version 0.04
+&nbsp; * @see Connect4Logic
+&nbsp; * @see GameState
+&nbsp; * @see Player
+&nbsp; * @see Connect4ComputerPlayer
+&nbsp; */
+&nbsp;public class Connect4Gui extends Application {
+&nbsp;    private final Player playerX;
+&nbsp;    private final Player playerO;
+&nbsp;    private final Circle[] circleButtons;
+&nbsp;    private final Circle[][] circleBoardMatrix;
+&nbsp;    /**
+&nbsp;     * The Game state.
+&nbsp;     */
+&nbsp;    protected GameState gameState;
+&nbsp;    private final Connect4Logic logicMethods;
+&nbsp;    /**
+&nbsp;     * The Header text.
+&nbsp;     */
+&nbsp;    protected Text headerText;
+&nbsp;    /**
+&nbsp;     * The Top box.
+&nbsp;     */
+&nbsp;    protected VBox topBox;
+&nbsp;    /**
+&nbsp;     * The Game over.
+&nbsp;     */
+&nbsp;    protected boolean gameOver;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Instantiates a new Connect 4 gui.
+&nbsp;     */
+<b class="nc">&nbsp;    public Connect4Gui(){</b>
+<b class="nc">&nbsp;        this.logicMethods = new Connect4Logic(new Connect4TextConsole());</b>
+<b class="nc">&nbsp;        this.gameState = new GameState();</b>
+<b class="nc">&nbsp;        this.topBox = new VBox();</b>
+<b class="nc">&nbsp;        this.playerX = new Player(&quot;Player 1&quot;, &#39;X&#39;);</b>
+<b class="nc">&nbsp;        this.playerO = new Player(&quot;Player 2&quot;, &#39;O&#39;);</b>
+<b class="nc">&nbsp;        this.circleButtons = new Circle[7];</b>
+<b class="nc">&nbsp;        this.circleBoardMatrix = new Circle[6][7];</b>
+<b class="nc">&nbsp;        this.gameState.curPlayerTurn = playerX;</b>
+<b class="nc">&nbsp;        this.headerText = new Text(&quot;2-Player mode or Computer vs. Player&quot;);</b>
+<b class="nc">&nbsp;        this.gameOver = true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set stage and game-board state
+&nbsp;     * @param primaryStage sets stage for GUI
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void start(Stage primaryStage) {
+&nbsp;        // Root
+<b class="nc">&nbsp;        AnchorPane root = new AnchorPane();</b>
+<b class="nc">&nbsp;        root.setPrefSize(840, 945);</b>
+<b class="nc">&nbsp;        root.setStyle(&quot;-fx-border-color: #000000; -fx-border-width: 3;&quot;);</b>
+&nbsp;
+&nbsp;        // Top Vbox with message
+<b class="nc">&nbsp;        Button cpu = new Button(&quot;Computer&quot;);</b>
+<b class="nc">&nbsp;        Button twoPlayer = new Button(&quot;2-Player&quot;);</b>
+<b class="nc">&nbsp;        headerText.setFont(new Font(30));</b>
+<b class="nc">&nbsp;        headerText.setTextAlignment(TextAlignment.CENTER);</b>
+<b class="nc">&nbsp;        topBox.setPrefSize(845, 100);</b>
+<b class="nc">&nbsp;        topBox.setStyle(&quot;-fx-background-color: #6BBAEC; -fx-border-color: #000000; -fx-border-width: 3;&quot;);</b>
+<b class="nc">&nbsp;        topBox.setSpacing(5);</b>
+<b class="nc">&nbsp;        topBox.setPadding(new Insets(0,200,5,200));</b>
+<b class="nc">&nbsp;        topBox.getChildren().addAll(headerText, cpu, twoPlayer);</b>
+<b class="nc">&nbsp;        cpu.setOnAction(e -&gt; {</b>
+<b class="nc">&nbsp;            cpuMode();</b>
+<b class="nc">&nbsp;            topBox.getChildren().removeAll(cpu, twoPlayer);</b>
+&nbsp;        });
+<b class="nc">&nbsp;        twoPlayer.setOnAction(e -&gt; {</b>
+<b class="nc">&nbsp;            twoPlayerMode();</b>
+<b class="nc">&nbsp;            topBox.getChildren().removeAll(cpu, twoPlayer);</b>
+&nbsp;        });
+<b class="nc">&nbsp;        root.getChildren().add(topBox);</b>
+&nbsp;
+&nbsp;        // button gridPain because it is Pain
+<b class="nc">&nbsp;        GridPane firstRowGrid = new GridPane();</b>
+<b class="nc">&nbsp;        firstRowGrid.setLayoutY(100);</b>
+<b class="nc">&nbsp;        firstRowGrid.setPrefSize(840, 125);</b>
+<b class="nc">&nbsp;        firstRowGrid.setStyle(&quot;-fx-border-width: 3;&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        for (int col = 0; col &lt; 7; col++) {</b>
+<b class="nc">&nbsp;            ColumnConstraints colConstraints = new ColumnConstraints(120);</b>
+<b class="nc">&nbsp;            firstRowGrid.getColumnConstraints().add(colConstraints);</b>
+<b class="nc">&nbsp;            RowConstraints rowConstraints = new RowConstraints(120);</b>
+<b class="nc">&nbsp;            firstRowGrid.getRowConstraints().add(rowConstraints);</b>
+&nbsp;
+<b class="nc">&nbsp;            Circle circle = new Circle(50, Color.WHITE);</b>
+<b class="nc">&nbsp;            circle.setStroke(Color.BLACK);</b>
+&nbsp;
+<b class="nc">&nbsp;            Rectangle rectangle = new Rectangle(120, 120, Color.web(&quot;#ffffff&quot;));</b>
+&nbsp;
+<b class="nc">&nbsp;            StackPane stack = new StackPane();</b>
+<b class="nc">&nbsp;            stack.getChildren().addAll(rectangle,circle);</b>
+<b class="nc">&nbsp;            circleButtons[col] = circle;</b>
+&nbsp;
+<b class="nc">&nbsp;            firstRowGrid.add(stack, col, 0);</b>
+<b class="nc">&nbsp;            circle.setOnMouseEntered(e -&gt; initialize());</b>
+<b class="nc">&nbsp;            circle.setOnMouseExited(e -&gt; initialize());</b>
+<b class="nc">&nbsp;            int columnIndex = col;</b>
+<b class="nc">&nbsp;            circle.setOnMouseClicked(e -&gt; takeTurnOnMouseClick(columnIndex));</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        root.getChildren().add(firstRowGrid);</b>
+&nbsp;
+&nbsp;        // gridPain
+<b class="nc">&nbsp;        GridPane mainGrid = new GridPane();</b>
+<b class="nc">&nbsp;        mainGrid.setLayoutY(220);</b>
+<b class="nc">&nbsp;        mainGrid.setPrefSize(840, 720);</b>
+<b class="nc">&nbsp;        mainGrid.setStyle(&quot;-fx-border-color: #000000; -fx-grid-lines-visible: true; -fx-background-color: #6987C9; -fx-border-width: 3;&quot;);</b>
+&nbsp;        //Add columns to gridPain
+<b class="nc">&nbsp;        for (int col = 0; col &lt; 7; col++) {</b>
+<b class="nc">&nbsp;            ColumnConstraints colConstraints = new ColumnConstraints(120);</b>
+<b class="nc">&nbsp;            mainGrid.getColumnConstraints().add(colConstraints);</b>
+&nbsp;        }
+&nbsp;        //Add rows to gridPain
+<b class="nc">&nbsp;        for (int row = 0; row &lt; 6; row++) {</b>
+<b class="nc">&nbsp;            RowConstraints rowConstraints = new RowConstraints(120);</b>
+<b class="nc">&nbsp;            mainGrid.getRowConstraints().add(rowConstraints);</b>
+&nbsp;        }
+&nbsp;        // Add circles to the main gridpane and matrix to manage state
+<b class="nc">&nbsp;        for (int row = 0; row &lt; 6; row++) {</b>
+<b class="nc">&nbsp;            for (int col = 0; col &lt; 7; col++) {</b>
+&nbsp;                //create circle object and add the obj to the matrix to be able to access and change properties later
+<b class="nc">&nbsp;                Circle circle = new Circle(50, Color.web(&quot;#bcc4db&quot;));</b>
+<b class="nc">&nbsp;                circle.setStroke(Color.BLACK);</b>
+<b class="nc">&nbsp;                circleBoardMatrix[row][col] = circle;</b>
+&nbsp;                //create square
+<b class="nc">&nbsp;                Rectangle rectangle = new Rectangle(120, 120, Color.web(&quot;#6987C9&quot;));</b>
+<b class="nc">&nbsp;                rectangle.setStroke(Color.BLACK);</b>
+&nbsp;                //create stackPane and add objs to the stackpane
+<b class="nc">&nbsp;                StackPane stack = new StackPane();</b>
+<b class="nc">&nbsp;                stack.getChildren().addAll(rectangle,circle);</b>
+&nbsp;                //add obj to the grid
+<b class="nc">&nbsp;                mainGrid.add(stack, col, row);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        root.getChildren().add(mainGrid);</b>
+&nbsp;
+&nbsp;        //scene and stage
+<b class="nc">&nbsp;        Scene scene = new Scene(root);</b>
+<b class="nc">&nbsp;        primaryStage.setScene(scene);</b>
+<b class="nc">&nbsp;        primaryStage.setMaxHeight(976);</b>
+<b class="nc">&nbsp;        primaryStage.setMinHeight(976);</b>
+<b class="nc">&nbsp;        primaryStage.setMaxWidth(845);</b>
+<b class="nc">&nbsp;        primaryStage.setMinWidth(845);</b>
+<b class="nc">&nbsp;        primaryStage.setTitle(&quot;Connect 4&quot;);</b>
+<b class="nc">&nbsp;        primaryStage.show();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the proper state for the selected game mode. Uses the static variable isComputer from GameState.
+&nbsp;     */
+&nbsp;    private void cpuMode(){
+<b class="nc">&nbsp;        headerText.setText(&quot;Begin Game.\nPlayer X it is your turn.&quot;);</b>
+<b class="nc">&nbsp;        this.gameOver = false;</b>
+<b class="nc">&nbsp;        topBox.setPadding(new Insets(0,300,5,300));</b>
+<b class="nc">&nbsp;        GameState.setIsComputer(true);</b>
+<b class="nc">&nbsp;        playerO.setName(&quot;Computer&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Ensures state for two-player game mode is set.
+&nbsp;     */
+&nbsp;    private void twoPlayerMode(){
+<b class="nc">&nbsp;        headerText.setText(&quot;Begin Game.\nPlayer X it is your turn.&quot;);</b>
+<b class="nc">&nbsp;        this.gameOver = false;</b>
+<b class="nc">&nbsp;        topBox.setPadding(new Insets(0,300,5,300));</b>
+<b class="nc">&nbsp;        GameState.setIsComputer(false);</b>
+<b class="nc">&nbsp;        playerO.setName(&quot;Player 2&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * initializes the circles in the gridPane above the gameboard
+&nbsp;     */
+&nbsp;    private void initialize() {
+<b class="nc">&nbsp;        for(int i = 0; i &lt; 7; i++){</b>
+<b class="nc">&nbsp;            setupHoverEffect(circleButtons[i]);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Take the column of the event and checks to ensure it is a valid move.
+&nbsp;     * Changes the circle node&#39;s fill to match that players color.
+&nbsp;     * If playing against a computer, computer will take its turn.
+&nbsp;     * Check for winner and repeat until game finishes.
+&nbsp;     * @param col Takes the column the player token needs to be dropped down
+&nbsp;     */
+&nbsp;    private void takeTurnOnMouseClick(int col){
+&nbsp;        //No more moves in that column
+<b class="nc">&nbsp;        if(this.gameState.validMoveIndex[col] &lt; 0 || this.gameOver){</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;        //update state
+<b class="nc">&nbsp;        if(this.gameState.totalMoves % 2 == 0){</b>
+<b class="nc">&nbsp;            circleBoardMatrix[gameState.validMoveIndex[col]][col].setFill(Color.web(&quot;#ff2e21&quot;));</b>
+<b class="nc">&nbsp;            gameState.connect4matrix[gameState.validMoveIndex[col]][col] = &#39;X&#39;;</b>
+<b class="nc">&nbsp;            gameState.validMoveIndex[col]--;</b>
+<b class="nc">&nbsp;            this.gameState.curPlayerTurn = playerO;</b>
+<b class="nc">&nbsp;            this.gameState.otherPlayer = playerX;</b>
+<b class="nc">&nbsp;            this.headerText.setText(gameState.curPlayerTurn.getName() + &quot; it is your turn&quot;);</b>
+<b class="nc">&nbsp;            this.gameState.totalMoves++;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        boolean continueGame = this.logicMethods.checkForWinner(this.gameState);</b>
+<b class="nc">&nbsp;        checkForWinner();</b>
+<b class="nc">&nbsp;        if(GameState.isComputer &amp;&amp; this.gameState.totalMoves % 2 == 1 &amp;&amp; !continueGame){</b>
+<b class="nc">&nbsp;            Connect4ComputerPlayer cpu = new Connect4ComputerPlayer();</b>
+<b class="nc">&nbsp;            int column = cpu.computerMove(this.gameState);</b>
+<b class="nc">&nbsp;            gameState.connect4matrix[gameState.validMoveIndex[column]][column] = &#39;O&#39;;</b>
+<b class="nc">&nbsp;            circleBoardMatrix[gameState.validMoveIndex[column]][column].setFill(Color.web(&quot;#fff41f&quot;));</b>
+<b class="nc">&nbsp;            gameState.validMoveIndex[column]--;</b>
+<b class="nc">&nbsp;            this.gameState.curPlayerTurn = playerX;</b>
+<b class="nc">&nbsp;            this.gameState.otherPlayer = playerO;</b>
+<b class="nc">&nbsp;            this.headerText.setText(gameState.curPlayerTurn.getName() + &quot; it is your turn&quot;);</b>
+<b class="nc">&nbsp;            this.gameState.totalMoves++;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        else if (!GameState.isComputer &amp;&amp; this.gameState.totalMoves % 2 == 1 &amp;&amp; !continueGame){</b>
+<b class="nc">&nbsp;            circleBoardMatrix[gameState.validMoveIndex[col]][col].setFill(Color.web(&quot;#fff41f&quot;));</b>
+<b class="nc">&nbsp;            gameState.connect4matrix[gameState.validMoveIndex[col]][col] = &#39;X&#39;;</b>
+<b class="nc">&nbsp;            gameState.validMoveIndex[col]--;</b>
+&nbsp;            //Change turns
+<b class="nc">&nbsp;            this.gameState.curPlayerTurn = playerX;</b>
+<b class="nc">&nbsp;            this.gameState.otherPlayer = playerO;</b>
+<b class="nc">&nbsp;            this.headerText.setText(gameState.curPlayerTurn.getName() + &quot; it is your turn&quot;);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        checkForWinner();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Checks for winner and updates states.
+&nbsp;     */
+&nbsp;    private void checkForWinner(){
+<b class="nc">&nbsp;        if(this.logicMethods.checkForWinner(this.gameState)){</b>
+<b class="nc">&nbsp;            this.gameOver = true;</b>
+&nbsp;            //End Game use otherPlayer because you already changed the
+<b class="nc">&nbsp;            headerText.setText(gameState.otherPlayer.getName() + &quot; you win!&quot;);</b>
+<b class="nc">&nbsp;            endGameMenu();</b>
+<b class="nc">&nbsp;            this.gameState.curPlayerTurn.setRecord(0);</b>
+<b class="nc">&nbsp;            this.gameState.otherPlayer.setRecord(1);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if(this.gameState.totalMoves == GameState.MAX_MOVES){</b>
+<b class="nc">&nbsp;            headerText.setText(&quot;Tie game&quot;);</b>
+<b class="nc">&nbsp;            this.gameState.curPlayerTurn.setRecord(2);</b>
+<b class="nc">&nbsp;            this.gameState.otherPlayer.setRecord(2);</b>
+<b class="nc">&nbsp;            endGameMenu();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Display end game menu.
+&nbsp;     */
+&nbsp;    private void endGameMenu(){
+&nbsp;        //create button to ask if they what to play again or quit.
+<b class="nc">&nbsp;        Button quitBtn = new Button(&quot;Quit.&quot;);</b>
+<b class="nc">&nbsp;        quitBtn.prefHeight(20);</b>
+<b class="nc">&nbsp;        quitBtn.prefWidth(30);</b>
+<b class="nc">&nbsp;        Button playAgain = new Button(&quot;Play Again&quot;);</b>
+<b class="nc">&nbsp;        playAgain.prefHeight(20);</b>
+<b class="nc">&nbsp;        playAgain.prefWidth(30);</b>
+<b class="nc">&nbsp;        quitBtn.setOnAction(e -&gt; Platform.exit());</b>
+<b class="nc">&nbsp;        playAgain.setOnAction(e -&gt; {</b>
+<b class="nc">&nbsp;            playAgain();</b>
+<b class="nc">&nbsp;            topBox.getChildren().removeAll(quitBtn, playAgain);</b>
+&nbsp;        });
+<b class="nc">&nbsp;        topBox.getChildren().addAll(playAgain,quitBtn);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Change circle fill to show players color token
+&nbsp;     * @param circle takes circle of the event to be triggered under
+&nbsp;     */
+&nbsp;    private void setupHoverEffect(Circle circle) {
+<b class="nc">&nbsp;        circle.setOnMouseEntered(mouseEvent -&gt; hoverColor(circle));</b>
+<b class="nc">&nbsp;        circle.setOnMouseExited(mouseEvent -&gt; hoverColorReset(circle));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Helper method for setupHoverEffect
+&nbsp;     * @param hoverCircle takes the circle that will have new .setFill applied to it
+&nbsp;     */
+&nbsp;    private void hoverColor(Circle hoverCircle){
+<b class="nc">&nbsp;        if(gameState.totalMoves % 2 == 0){</b>
+&nbsp;            //Player x color
+<b class="nc">&nbsp;            hoverCircle.setFill(Color.web(&quot;#ff2e21&quot;));</b>
+&nbsp;        }else{
+&nbsp;            //Player o color
+<b class="nc">&nbsp;            hoverCircle.setFill(Color.web(&quot;#fff41f&quot;));</b>
+&nbsp;        }
+&nbsp;
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Helper method for setupHoverEffect
+&nbsp;     * @param hoverCircle takes circle that will have color value reset to default
+&nbsp;     */
+&nbsp;    private void hoverColorReset(Circle hoverCircle){
+<b class="nc">&nbsp;        hoverCircle.setFill(Color.web(&quot;#ffffff&quot;));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Reset game state for new game.
+&nbsp;     */
+&nbsp;    private void playAgain() {
+<b class="nc">&nbsp;        this.gameState.totalMoves = 0;</b>
+<b class="nc">&nbsp;        this.gameState.connect4matrix = new char[6][7];  // Clear the board matrix</b>
+<b class="nc">&nbsp;        this.gameState.validMoveIndex = new int[]{5, 5, 5, 5, 5, 5, 5};  // Reset column indices</b>
+<b class="nc">&nbsp;        this.gameState.curPlayerTurn = playerX;</b>
+<b class="nc">&nbsp;        this.gameState.otherPlayer = playerO;</b>
+<b class="nc">&nbsp;        this.gameOver = false;</b>
+<b class="nc">&nbsp;        for (int row = 0; row &lt; 6; row++) {</b>
+<b class="nc">&nbsp;            for (int col = 0; col &lt; 7; col++) {</b>
+<b class="nc">&nbsp;                circleBoardMatrix[row][col].setFill(Color.web(&quot;#bcc4db&quot;));</b>
+&nbsp;            }
+<b class="nc">&nbsp;            headerText.setText(&quot;Player X it is your turn.&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Used to launch GUI from Connect4Logic
+&nbsp;     */
+&nbsp;    public static void launchGui() {
+<b class="nc">&nbsp;        launch();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-11-20 19:02</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,7 @@
+Report is in JUnitTesting under htmlReport. Open the index.html in a browser to view the full coverage report.
+
+src contains the main package and test packages. Navigate to correct level to view the test files.
+
+module-info.java includes the dependencies I used to create the tests.
+
+Used JUnit 5.

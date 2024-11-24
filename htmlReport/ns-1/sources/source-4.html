@@ -1,0 +1,186 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Player</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">core</a>
+</div>
+
+<h1>Coverage Summary for Class: Player (core)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Player</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (13/13)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package core;
+&nbsp;
+&nbsp;/**
+&nbsp; * Node class used to create a player or cpu Node object.
+&nbsp; *
+&nbsp; * @author jedidiahlafond
+&nbsp; * @version 0.04
+&nbsp; * @see Connect4Logic
+&nbsp; * @see Connect4ComputerPlayer
+&nbsp; */
+&nbsp;public class Player {
+&nbsp;    private String name;
+&nbsp;    private final char marking;
+&nbsp;    private final int[] record;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set name.
+&nbsp;     *
+&nbsp;     * @param s the s
+&nbsp;     */
+&nbsp;    public void setName(String s){
+<b class="fc">&nbsp;        this.name = s;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets name.
+&nbsp;     *
+&nbsp;     * @return the name
+&nbsp;     */
+&nbsp;    public String getName() {
+<b class="fc">&nbsp;        return name;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets marking.
+&nbsp;     *
+&nbsp;     * @return the marking
+&nbsp;     */
+&nbsp;    public char getMarking() {
+<b class="fc">&nbsp;        return marking;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get record int [ ].
+&nbsp;     *
+&nbsp;     * @return the int [ ]
+&nbsp;     */
+&nbsp;    public int[] getRecord() {
+<b class="fc">&nbsp;        return record;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set record.
+&nbsp;     *
+&nbsp;     * @param i the
+&nbsp;     */
+&nbsp;    public void setRecord(int i){
+<b class="fc">&nbsp;        this.record[i]++;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Instantiates a new Player.
+&nbsp;     */
+<b class="fc">&nbsp;    public Player(){</b>
+<b class="fc">&nbsp;        this.name = &quot;Default&quot;;</b>
+<b class="fc">&nbsp;        this.marking = &#39;O&#39;;</b>
+<b class="fc">&nbsp;        this.record = new int[]{0,0,0};</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Instantiates a new Player.
+&nbsp;     *
+&nbsp;     * @param name    the name
+&nbsp;     * @param marking record initialized to [0, 0, 0] upon instantiation
+&nbsp;     */
+<b class="fc">&nbsp;    public Player(String name, char marking){</b>
+<b class="fc">&nbsp;        this.name = name;</b>
+<b class="fc">&nbsp;        this.marking = marking;</b>
+<b class="fc">&nbsp;        this.record = new int[]{0,0,0};</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-11-20 19:02</div>
+</div>
+</body>
+</html>

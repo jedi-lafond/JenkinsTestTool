@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"core","l":"Connect4ComputerPlayer"},{"p":"ui","l":"Connect4Gui"},{"p":"core","l":"Connect4Logic"},{"p":"ui","l":"Connect4TextConsole"},{"p":"core","l":"GameState"},{"p":"core","l":"Player"}];updateSearchResults();
