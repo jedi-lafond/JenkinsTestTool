@@ -7,6 +7,6 @@ module JenkinsTestTool.test {
     requires org.junit.jupiter.engine;
     requires org.mockito;
     requires javafx.controls;
-
+    //Test package
     exports test;
 }
