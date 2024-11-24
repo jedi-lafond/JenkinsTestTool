@@ -46,13 +46,7 @@ dependencies {
 }
 
 tasks.named('test', Test) {
-    useJUnitPlatform()
-    maxParallelForks = 2
-    maxHeapSize = '1G'
 
-    testLogging {
-        events "passed"
-    }
 }
 
 tasks.register('testReport', TestReport) {
@@ -62,8 +56,11 @@ tasks.register('testReport', TestReport) {
 }
 
 test {
-    include '**/*Test.class'
-    reports {
-        junitXml.outputLocation = layout.buildDirectory.dir("test-junit-xml")
+    useJUnitPlatform()
+    maxParallelForks = 2
+    maxHeapSize = '1G'
+    testLogging {
+        events "passed"
     }
+    include '**/*Test.class'
 }
