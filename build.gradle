@@ -13,7 +13,6 @@ repositories {
 
 application{
     mainModule = 'JenkinsTestTool.main'
-
 }
 
 configurations {
