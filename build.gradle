@@ -13,6 +13,7 @@ repositories {
 
 application{
     mainModule = 'JenkinsTestTool.main'
+
 }
 
 configurations {
@@ -59,4 +60,7 @@ test {
         events "passed"
     }
     include '**/*Test.class'
+    reports {
+        junitXml.outputLocation = layout.buildDirectory.dir("test-junit-xml")
+    }
 }
