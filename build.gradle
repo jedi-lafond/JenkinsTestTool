@@ -44,7 +44,6 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:5.14.2'
 }
 
-
 tasks.register('testReport', TestReport) {
     destinationDirectory = reporting.baseDirectory.dir('allTests')
     // Use test results from testReportData configuration
