@@ -8,6 +8,5 @@ module JenkinsTestTool.test {
     requires org.mockito;
     requires javafx.controls;
 
-
     exports test;
 }
