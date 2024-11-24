@@ -60,7 +60,7 @@ tasks.register('testReport', TestReport) {
 }
 
 test {
-    include '**/*Test.class'
+
     reports {
         junitXml.outputLocation = layout.buildDirectory.dir("test-junit-xml")
     }
