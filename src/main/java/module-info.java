@@ -1,7 +1,7 @@
 /**
  * Main Module
  */
-module JUnitTesting.main {
+module JenkinsTestTool.main {
     exports core;
     exports ui;
 
