@@ -1,5 +1,5 @@
 module JenkinsTestTool.test {
-    requires JUnitTesting.main;
+    requires JenkinsTestTool.main;
     requires org.junit.jupiter.api;
     requires org.mockito;
     requires javafx.controls;
