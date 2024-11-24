@@ -47,7 +47,7 @@ tasks.named('test', Test) {
     useJUnitPlatform()
     maxParallelForks = 2
     maxHeapSize = '1G'
-
+    include '**/*Test.class'
     testLogging {
         events "passed"
     }
