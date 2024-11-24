@@ -12,8 +12,7 @@ repositories {
 }
 
 application{
-    mainModule = 'JenkinsTestTool.main.core.Connect4Logic'
-    mainClassName = 'JenkinsTestTool.main.core.Connect4Logic'
+    mainModule = 'JenkinsTestTool.main'
 }
 
 configurations {
